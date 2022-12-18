@@ -2,7 +2,7 @@
 TODO step by step guide on how to setup.
 which settings to configure in the config file.
 folder layout
-branch infrastructure 
+branch infrastructure
 
 ## Features
 ### Done
