@@ -34,8 +34,8 @@ jobs:
         with:
           submodules: recursive
 
-      - name: print tree
-        run: tree
+      # - name: print tree
+      #   run: tree
 
       - name: Copy Images
         uses: andstor/copycat-action@v3.2.4
@@ -55,11 +55,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          submodules: recursive
+        # with:
+        #   submodules: recursive
           
       - name: print tree
         run: tree
+      # - name: print tree
+      #   run: cd
+      # - name: print tree
+      #   run: tree
         
       - name: Copy Markdowns
         uses: andstor/copycat-action@v3.2.4
