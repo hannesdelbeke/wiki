@@ -16,12 +16,6 @@ permissions:
   contents: write
 
 jobs:
-  copy-images:
-    runs-on: ubuntu-latest
-    steps:
-          
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
 
 
       # TODO run janitor on markdown input
@@ -30,6 +24,15 @@ jobs:
       # - name: setup copy
       #   run: mkdir -p 
 
+
+  copy-images:
+    runs-on: ubuntu-latest
+    steps:
+          
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: Copy Images
         uses: andstor/copycat-action@v3.2.4
         with:
@@ -48,6 +51,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: Copy Markdowns
         uses: andstor/copycat-action@v3.2.4
         with:
