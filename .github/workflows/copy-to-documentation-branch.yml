@@ -71,19 +71,29 @@ jobs:
       - name: print tree
         run: tree
 
-      # push repo
-      - name: push updates to mkdocs branch
-        # uses: ad-m/github-push-action@master
-        # with:
-        #   directory: dst_repo
-        run: |
+      # # push repo
+      # - name: push updates to mkdocs branch
+      #   # uses: ad-m/github-push-action@master
+      #   # with:
+      #   #   directory: dst_repo
+      #   run: |
+      #       cd dst_repo
+      #       git config --global user.name github-actions
+      #       git config --global user.email github-actions@github.com
+      #       git add .
+      #       git commit -m "copy notes and images"
+      #       git push
+      
+      # deploy site
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - run: |
             cd dst_repo
-            git config --global user.name github-actions
-            git config --global user.email github-actions@github.com
-            git add .
-            git commit -m "copy notes and images"
-            git push
-             
+            pip install --requirement requirements.txt
+      - run: |
+            cd dst_repo
+            mkdocs gh-deploy --force
       
       # - name: print tree
       #   run: tree
