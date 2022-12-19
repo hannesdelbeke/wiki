@@ -22,8 +22,8 @@ jobs:
           path: dst_repo
           ref: mkdocs
 
-      - name: remove docs folder
-        run: rm --force -r dst_repo/docs
+      # - name: remove docs folder
+      #   run: rm --force -r dst_repo/docs
 
       # load content files in submodule in the docs folder
       - name: load submodule
@@ -49,16 +49,19 @@ jobs:
       - name: Run Note Link Janitor
         run: ${{ github.workspace }}/note-link-janitor/dist/index.js ${{ github.workspace }}/temp_submodule
 
-      # first move image, then notes. mkdir if folder not exists
+      - run: tree
+
+      # first move image, then notes. # docs folder already exists, it contains css in assets
       - name: move submodule files to dst_repo
         run: |
             mkdir -p dst_repo/static/images/
             mv temp_submodule/image/* dst_repo/static/images/
 
             rm --force -r temp_submodule/.git
-            mkdir -p dst_repo/docs/
-            mv temp_submodule/* dst_repo/docs/
+            rsync -av temp_submodule/* dst_repo/docs/
       
+      - run: tree
+
       # # push repo
       # - name: push updates to mkdocs branch
       #   # uses: ad-m/github-push-action@master
