@@ -41,7 +41,7 @@ jobs:
         run: tree
 
       - name: Copy Images (custom)
-        uses: hannesdelbeke/copycat-action-2
+        uses: hannesdelbeke/copycat-action-2@v3.3
         with:
           personal_token: ${{ secrets.ACTION_TOKEN  }}
           src_branch: main
@@ -69,7 +69,7 @@ jobs:
         run: tree
         
       - name: Copy Markdowns
-        uses: hannesdelbeke/copycat-action-2
+        uses: hannesdelbeke/copycat-action-2@v3.3
         with:
           personal_token: ${{ secrets.ACTION_TOKEN  }}
           src_branch: main
