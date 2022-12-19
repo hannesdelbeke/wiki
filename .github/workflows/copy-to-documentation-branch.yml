@@ -34,6 +34,9 @@ jobs:
         with:
           submodules: recursive
 
+      - name: force update submodule
+        run: git submodule update --remote
+
       - name: print tree
         run: tree
 
@@ -58,6 +61,9 @@ jobs:
         with:
           submodules: recursive
           
+      - name: force update submodule
+        run: git submodule update --remote
+        
       - name: print tree
         run: tree
         
