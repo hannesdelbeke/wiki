@@ -11,34 +11,16 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# set GITHUB_TOKEN access
-permissions:
-  contents: write
-
 jobs:
 
-
-      # TODO run janitor on markdown input
-      
-      # TODO garantuee image and note folder exists
-      # - name: setup copy
-      #   run: mkdir -p 
-
+  # TODO run janitor on markdown input
 
   copy-content-to-mkdocs-branch:
     runs-on: ubuntu-latest
     steps:
-          
-      # Checks-out custom github action
-      # - uses: actions/checkout@v2
-      #   with:
-      #     repo: https://github.com/hannesdelbeke/copycat-action-2
-      
-      # - name: force update submodule
-      #   run: git submodule update --remote
 
-      # checkout source repo
-      - uses: actions/checkout@v2
+      - name: checkout source repo
+        uses: actions/checkout@v2
         with: 
           path: src_repo
       
@@ -68,9 +50,6 @@ jobs:
             mkdir -p dst_repo/docs/
             mv temp_submodule/* dst_repo/docs/
 
-      - name: print tree
-        run: tree
-
       # # push repo
       # - name: push updates to mkdocs branch
       #   # uses: ad-m/github-push-action@master
@@ -84,73 +63,14 @@ jobs:
       #       git commit -m "copy notes and images"
       #       git push
       
-      # deploy site
       - uses: actions/setup-python@v2
         with:
           python-version: 3.x
-      - run: |
+      - name: install py requirements
+        run: |
             cd dst_repo
             pip install --requirement requirements.txt
-      - run: |
+      - name: build mkdocs & deploy to github pages
+        run: |
             cd dst_repo
             mkdocs gh-deploy --force
-      
-      # - name: print tree
-      #   run: tree
-
-      # - name: Copy Images (custom)
-      #   uses: hannesdelbeke/copycat-action-2@v3.3
-      #   with:
-      #     personal_token: ${{ secrets.ACTION_TOKEN  }}
-      #     src_branch: main
-      #     dst_branch: mkdocs
-      #     src_path: notes/image/.
-      #     dst_path: /static/images/
-      #     dst_owner: ${{ env.REPO_OWNER }}
-      #     dst_repo_name: ${{ github.event.repository.name }}
-      #     clean: true  # empty dst_path before copying
-      #     commit_message: "Images copied from main to documentation branch!"
-
-  # copy-sections:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     # Checks-out custom github action
-  #     # - uses: actions/checkout@v2
-  #     #   with:
-  #     #     repo: https://github.com/hannesdelbeke/copycat-action-2
-          
-  #     # - name: force update submodule
-  #     #   run: git submodule update --remote
-
-  #     - name: print tree
-  #       run: tree
-        
-  #     - name: Copy Markdowns
-  #       uses: hannesdelbeke/copycat-action-2@v3.3
-  #       with:
-  #         personal_token: ${{ secrets.ACTION_TOKEN  }}
-  #         src_branch: main
-  #         dst_branch: mkdocs
-  #         src_path: notes/.
-  #         dst_path: /docs/
-  #         dst_owner: ${{ env.REPO_OWNER }}
-  #         dst_repo_name: ${{ github.event.repository.name }}
-  #         clean: true  # empty dst_path before copying
-  #         commit_message: "Sections copied from main to documentation branch!"
-       
-# copy-readme:
-#   runs-on: ubuntu-latest
-#   steps:
-#     - uses: actions/checkout@v2
-#     - name: Copy Markdowns
-#       uses: andstor/copycat-action@v3
-#       with:
-#         personal_token: ${{ secrets.PERSONAL_TOKEN  }}
-#         src_branch: main
-#         src_path: /README.md
-#         dst_owner: andkret
-#         dst_repo_name: ${{ github.event.repository.name }}
-#         dst_path: /docs/
-#         dst_branch: mkdocs
-#         commit_message: "README.md copied from main to documentation branch!"
