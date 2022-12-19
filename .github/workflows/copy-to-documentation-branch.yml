@@ -25,7 +25,7 @@ jobs:
       #   run: mkdir -p 
 
 
-  copy-images:
+  copy-content-to-mkdocs-branch:
     runs-on: ubuntu-latest
     steps:
           
@@ -48,22 +48,28 @@ jobs:
           path: dst_repo
           ref: mkdocs
 
-      - name: print tree
-        run: tree
-
       - name: remove docs folder
-        run: rm --force dst_repo/docs
+        run: rm --force -r dst_repo/docs
 
       # load content files in submodule in the docs folder
       - name: load submodule
         uses: actions/checkout@v2
         with: 
           repository: hannesdelbeke/brain
-          path: dst_repo/docs
+          path: temp_submodule
 
-      # copy images to /static/images/
-      - name: move images
-        run: mv dst_repo/docs/image/* dst_repo/static/images/
+      # first move image, then notes. mkdir if folder not exists
+      - name: move submodule files to dst_repo
+        run: |
+            mkdir -p dst_repo/static/images/
+            mv temp_submodule/image/* dst_repo/static/images/
+
+            rm --force -r temp_submodule/.git
+            mkdir -p dst_repo/docs/
+            mv temp_submodule/* dst_repo/docs/
+
+      - name: print tree
+        run: tree
 
       # push repo
       - name: push updates to mkdocs branch
@@ -78,7 +84,6 @@ jobs:
             git commit -m "copy notes and images"
             git push
              
-
       
       # - name: print tree
       #   run: tree
