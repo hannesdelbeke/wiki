@@ -29,19 +29,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
           
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Checks-out custom github action
       - uses: actions/checkout@v2
         with:
-          submodules: recursive
-
-      - name: force update submodule
-        run: git submodule update --remote
+          repo: https://github.com/hannesdelbeke/copycat-action-2
+      
+      # - name: force update submodule
+      #   run: git submodule update --remote
 
       - name: print tree
         run: tree
 
-      - name: Copy Images
-        uses: andstor/copycat-action@v3.2.4
+      - name: Copy Images (custom)
+        uses: ./
         with:
           personal_token: ${{ secrets.ACTION_TOKEN  }}
           src_branch: main
@@ -57,18 +57,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checks-out custom github action
       - uses: actions/checkout@v2
         with:
-          submodules: recursive
+          repo: https://github.com/hannesdelbeke/copycat-action-2
           
-      - name: force update submodule
-        run: git submodule update --remote
+      # - name: force update submodule
+      #   run: git submodule update --remote
 
       - name: print tree
         run: tree
         
       - name: Copy Markdowns
-        uses: andstor/copycat-action@v3.2.4
+        uses: ./
         with:
           personal_token: ${{ secrets.ACTION_TOKEN  }}
           src_branch: main
