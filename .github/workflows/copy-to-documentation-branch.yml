@@ -37,49 +37,92 @@ jobs:
       # - name: force update submodule
       #   run: git submodule update --remote
 
+      # checkout source repo
+      - uses: actions/checkout@v2
+        with: 
+          path: src_repo
+      
+      - name: checkout target repo (branch)
+        uses: actions/checkout@v2
+        with: 
+          path: dst_repo
+          ref: mkdocs
+
       - name: print tree
         run: tree
 
-      - name: Copy Images (custom)
-        uses: hannesdelbeke/copycat-action-2@v3.3
-        with:
-          personal_token: ${{ secrets.ACTION_TOKEN  }}
-          src_branch: main
-          dst_branch: mkdocs
-          src_path: notes/image/.
-          dst_path: /static/images/
-          dst_owner: ${{ env.REPO_OWNER }}
-          dst_repo_name: ${{ github.event.repository.name }}
-          clean: true  # empty dst_path before copying
-          commit_message: "Images copied from main to documentation branch!"
+      - name: remove docs folder
+        run: rm --force dst_repo/docs
 
-  copy-sections:
-    runs-on: ubuntu-latest
+      # load content files in submodule in the docs folder
+      - name: load submodule
+        uses: actions/checkout@v2
+        with: 
+          repository: hannesdelbeke/brain
+          path: dst_repo/docs
 
-    steps:
-      # Checks-out custom github action
-      # - uses: actions/checkout@v2
+      # copy images to /static/images/
+      - name: move images
+        run: mv dst_repo/docs/image/* dst_repo/static/images/
+
+      # push repo
+      - name: push updates to mkdocs branch
+        # uses: ad-m/github-push-action@master
+        # with:
+        #   directory: dst_repo
+        run: |
+            cd dst_repo
+            git config --global user.name github-actions
+            git config --global user.email github-actions@github.com
+            git add .
+            git commit -m "copy notes and images"
+            git push
+             
+
+      
+      # - name: print tree
+      #   run: tree
+
+      # - name: Copy Images (custom)
+      #   uses: hannesdelbeke/copycat-action-2@v3.3
       #   with:
-      #     repo: https://github.com/hannesdelbeke/copycat-action-2
-          
-      # - name: force update submodule
-      #   run: git submodule update --remote
+      #     personal_token: ${{ secrets.ACTION_TOKEN  }}
+      #     src_branch: main
+      #     dst_branch: mkdocs
+      #     src_path: notes/image/.
+      #     dst_path: /static/images/
+      #     dst_owner: ${{ env.REPO_OWNER }}
+      #     dst_repo_name: ${{ github.event.repository.name }}
+      #     clean: true  # empty dst_path before copying
+      #     commit_message: "Images copied from main to documentation branch!"
 
-      - name: print tree
-        run: tree
+  # copy-sections:
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     # Checks-out custom github action
+  #     # - uses: actions/checkout@v2
+  #     #   with:
+  #     #     repo: https://github.com/hannesdelbeke/copycat-action-2
+          
+  #     # - name: force update submodule
+  #     #   run: git submodule update --remote
+
+  #     - name: print tree
+  #       run: tree
         
-      - name: Copy Markdowns
-        uses: hannesdelbeke/copycat-action-2@v3.3
-        with:
-          personal_token: ${{ secrets.ACTION_TOKEN  }}
-          src_branch: main
-          dst_branch: mkdocs
-          src_path: notes/.
-          dst_path: /docs/
-          dst_owner: ${{ env.REPO_OWNER }}
-          dst_repo_name: ${{ github.event.repository.name }}
-          clean: true  # empty dst_path before copying
-          commit_message: "Sections copied from main to documentation branch!"
+  #     - name: Copy Markdowns
+  #       uses: hannesdelbeke/copycat-action-2@v3.3
+  #       with:
+  #         personal_token: ${{ secrets.ACTION_TOKEN  }}
+  #         src_branch: main
+  #         dst_branch: mkdocs
+  #         src_path: notes/.
+  #         dst_path: /docs/
+  #         dst_owner: ${{ env.REPO_OWNER }}
+  #         dst_repo_name: ${{ github.event.repository.name }}
+  #         clean: true  # empty dst_path before copying
+  #         commit_message: "Sections copied from main to documentation branch!"
        
 # copy-readme:
 #   runs-on: ubuntu-latest
