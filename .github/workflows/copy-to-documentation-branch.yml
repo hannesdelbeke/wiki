@@ -15,11 +15,6 @@ jobs:
   copy-content-to-mkdocs-branch:
     runs-on: ubuntu-latest
     steps:
-
-      - name: checkout source repo
-        uses: actions/checkout@v2
-        with: 
-          path: src_repo
       
       - name: checkout target repo (branch)
         uses: actions/checkout@v2
@@ -37,16 +32,6 @@ jobs:
           repository: hannesdelbeke/brain
           path: temp_submodule
 
-      # first move image, then notes. mkdir if folder not exists
-      - name: move submodule files to dst_repo
-        run: |
-            mkdir -p dst_repo/static/images/
-            mv temp_submodule/image/* dst_repo/static/images/
-
-            rm --force -r temp_submodule/.git
-            mkdir -p dst_repo/docs/
-            mv temp_submodule/* dst_repo/docs/
-
       # run janitor on markdown input
       - uses: actions/setup-node@v2
         with:
@@ -62,10 +47,17 @@ jobs:
             yarn install
             yarn run build
       - name: Run Note Link Janitor
-        run: ${{ github.workspace }}/note-link-janitor/dist/index.js ${{ github.workspace }}/dst_repo/docs
-        # restore path
-      # - run: cd .. #${{ github.workspace }}/${{ github.event.repository.name }}
+        run: ${{ github.workspace }}/note-link-janitor/dist/index.js ${{ github.workspace }}/temp_submodule
 
+      # first move image, then notes. mkdir if folder not exists
+      - name: move submodule files to dst_repo
+        run: |
+            mkdir -p dst_repo/static/images/
+            mv temp_submodule/image/* dst_repo/static/images/
+
+            rm --force -r temp_submodule/.git
+            mkdir -p dst_repo/docs/
+            mv temp_submodule/* dst_repo/docs/
       
       # # push repo
       # - name: push updates to mkdocs branch
