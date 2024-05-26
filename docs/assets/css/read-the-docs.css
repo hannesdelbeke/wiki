@@ -4,11 +4,11 @@ footer {
 
 /* Dark background */
 .wy-nav-content {
-    background: #202020;
+    background: #151515;
 }
 
 body .wy-nav-content-wrap {
-    background: #202020;
+    background: #151515;
 }
 
 /* nearly white text */
@@ -23,7 +23,7 @@ body {
 
 /* Links */
 a {
-    color: #57d1ff;
+    color: #6997f4;
 }
 
 a:hover {
@@ -33,9 +33,12 @@ a:hover {
 
 /* Visited links */
 .wy-nav-content a:visited:not([class="icon icon-home"]){
-    color: #cc69f4;
+    color: #b86bfb;
 }
 a.icon.icon-home:visited {
+    color: white;
+}
+a.icon.icon-home {
     color: white;
 }
 
@@ -141,6 +144,6 @@ border:0px solid #e1e4e5;
 color:white;
 }
 .hljs-meta .hljs-string, .hljs-regexp, .hljs-string{
-color:#74e62c;
+color:#71d313;
 }
 
