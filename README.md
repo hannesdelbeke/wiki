@@ -1,32 +1,11 @@
-```stl
-solid cube_corner
-  facet normal 0.0 -1.0 0.0
-    outer loop
-      vertex 0.0 0.0 0.0
-      vertex 1.0 0.0 0.0
-      vertex 0.0 0.0 1.0
-    endloop
-  endfacet
-  facet normal 0.0 0.0 -1.0
-    outer loop
-      vertex 0.0 0.0 0.0
-      vertex 0.0 1.0 0.0
-      vertex 1.0 0.0 0.0
-    endloop
-  endfacet
-  facet normal -1.0 0.0 0.0
-    outer loop
-      vertex 0.0 0.0 0.0
-      vertex 0.0 0.0 1.0
-      vertex 0.0 1.0 0.0
-    endloop
-  endfacet
-  facet normal 0.577 0.577 0.577
-    outer loop
-      vertex 1.0 0.0 0.0
-      vertex 0.0 1.0 0.0
-      vertex 0.0 0.0 1.0
-    endloop
-  endfacet
-endsolid
-```
+# build
+this  branch is used to build the md notes to html with mkdocs
+
+- checkout mk docs branch
+- open in IDE
+- install requirements
+- put some md notes in the docs folder
+- start the mkdocs server: `mkdocs serve`
+- open the browser at http://127.0.0.1:8000/
+- make changes in the markdown files
+- refresh the browser to see the changes
