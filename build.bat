@@ -1,7 +1,3 @@
-REM winget install OpenJS.NodeJS
-REM winget install yarm.yarn
-
-
 @echo off
 setlocal
 
@@ -20,12 +16,10 @@ REM Load content files in submodule in the docs folder
 echo Loading submodule...
 git clone https://github.com/%REPO_OWNER%/brain.git %TEMP_SUBMODULE%
 
-REM Set up Node.js and Yarn
+REM Set up Node.js and Yarn using winget
 echo Setting up Node.js and Yarn...
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-call %USERPROFILE%\.nvm\nvm install 16
-call %USERPROFILE%\.nvm\nvm use 16
-npm install --global yarn
+winget install OpenJS.NodeJS.LTS
+winget install Yarn.Yarn
 
 REM Clone the note-link-janitor repository and install dependencies
 if exist %NOTE_LINK_JANITOR% (
