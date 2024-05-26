@@ -16,21 +16,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      # clone the 'mkdocs' branch to the'dst_repo' folder
-      - name: checkout target repo (branch)
+      # clone the 'mkdocs' branch to the'mkdocs_build_folder' folder
+      - name: clone the mkdocs build branch
         uses: actions/checkout@v2
         with: 
-          path: dst_repo
+          path: mkdocs_build_folder
           ref: mkdocs
 
-      # load content files in submodule in the docs folder
-      - name: load submodule
+      # clone the notes to the docs folder
+      - name: clone the notes to the docs folder
         uses: actions/checkout@v2
         with: 
           repository: hannesdelbeke/brain
-          path: temp_submodule
+          path: notes_source
 
-      # run janitor on markdown input
+      # run janitor on markdown input to create backlinks
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
@@ -45,31 +45,31 @@ jobs:
             yarn install
             yarn run build
       - name: Run Note Link Janitor
-        run: ${{ github.workspace }}/note-link-janitor/dist/index.js ${{ github.workspace }}/temp_submodule
+        run: ${{ github.workspace }}/note-link-janitor/dist/index.js ${{ github.workspace }}/notes_source
 
-      # Clean dst_repo/docs before syncing new files.
+      # Clean mkdocs_build_folder/docs before syncing new files.
       # prevents duplicate files in case we moved a file.
-      - name: clean dst_repo/docs
-        run: |
-          rm -rf dst_repo/docs/*
-          mkdir -p dst_repo/docs/
+      # - name: clean mkdocs_build_folder/docs
+      #   run: |
+      #     rm -rf mkdocs_build_folder/docs/*
+      #     mkdir -p mkdocs_build_folder/docs/
           
       # first move image, then notes. # docs folder already exists, it contains css in assets
-      - name: move submodule files to dst_repo
+      - name: move submodule files to mkdocs_build_folder
         run: |
-            mkdir -p dst_repo/static/images/
-            mv temp_submodule/image/* dst_repo/static/images/
+            mkdir -p mkdocs_build_folder/static/images/
+            mv notes_source/image/* mkdocs_build_folder/docs/images/
 
-            rm --force -r temp_submodule/.git
-            rsync -av temp_submodule/* dst_repo/docs/
+            rm --force -r notes_source/.git
+            rsync -av notes_source/* mkdocs_build_folder/docs/
 
       # # push repo
       # - name: push updates to mkdocs branch
       #   # uses: ad-m/github-push-action@master
       #   # with:
-      #   #   directory: dst_repo
+      #   #   directory: mkdocs_build_folder
       #   run: |
-      #       cd dst_repo
+      #       cd mkdocs_build_folder
       #       git config --global user.name github-actions
       #       git config --global user.email github-actions@github.com
       #       git add .
@@ -81,9 +81,9 @@ jobs:
           python-version: 3.x
       - name: install py requirements
         run: |
-            cd dst_repo
+            cd mkdocs_build_folder
             pip install --requirement requirements.txt
       - name: build mkdocs & deploy to github pages
         run: |
-            cd dst_repo
+            cd mkdocs_build_folder
             mkdocs gh-deploy --force
