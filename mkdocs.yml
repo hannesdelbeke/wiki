@@ -79,7 +79,7 @@ markdown_extensions:
     - pymdownx.tasklist:          # adds GFM style task lists
           custom_checkbox: false  # if true, unchecked checkboxes confusingly have a tick
     - pymdownx.emoji:
-          emoji_index: !!python/name:materialx.emoji.twemoji
+          emoji_index: !!python/name:material.extensions.emoji.twemoji
           emoji_generator: !!python/name:materialx.emoji.to_svg
     - admonition                   # adds rST-style admonitions (standard), great for warnings
     - toc:                         # table of content
