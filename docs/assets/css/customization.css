@@ -1,14 +1,27 @@
 /*
 Customize dark theme
 */
+
+/* Apply 50% opacity to all md-nav__item elements within md-sidebar */
+.md-sidebar .md-nav__link{
+    opacity: 0.5;
+}
+
+/* Set opacity to 100% for active nav items within md-sidebar */
+.md-sidebar .md-nav__link.md-nav__link--active {
+    opacity: 1;
+}
+
+/* CSS for removing opacity on hover */
+.md-sidebar .md-nav__link:hover {
+    opacity: 1;
+}
+
+
+/* make hyperlinks bold */ /* DISABLED
 .md-typeset a, .md-typeset a:before {
-
     font-weight: 600  ;
-}
-
-.md-typeset {
-    font-size: .7rem;
-}
+} */
 
 [data-md-color-scheme=slate][data-md-color-primary=black], [data-md-color-scheme=slate][data-md-color-primary=blue-grey], [data-md-color-scheme=slate][data-md-color-primary=grey], [data-md-color-scheme=slate][data-md-color-primary=white]{
     --md-typeset-a-color: rgb(167, 244, 23);  /* URL color basic */
