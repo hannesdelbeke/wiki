@@ -50,6 +50,7 @@ theme:
         - search.suggest          # autocomplete in the search box
         - search.highlight        # highlight search terms in the search results
         - content.tooltips        # 💸PREMIUM, pretty tooltips for links
+        - toc.follow              # auto scroll up so active anchor is always visible
 #relative URLs
 
 # Extensions
