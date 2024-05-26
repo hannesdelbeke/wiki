@@ -1,0 +1,56 @@
+footer {
+    display: none;
+}
+
+/* Dark background */
+.wy-nav-content {
+    background: #404040;
+}
+
+body .wy-nav-content-wrap {
+    background: #404040;
+}
+
+/* White text */
+body {
+    color: white;
+}
+
+/* Not found wiki-links */
+.not_found {
+    color: black;
+}
+
+/* Links */
+a {
+    color: #57d1ff;
+}
+
+a:hover {
+    color: #57d1ff;
+    text-decoration: underline;
+}
+
+/* Visited links */
+.wy-nav-content a:visited:not([class="icon icon-home"]){
+    color: #cc69f4;
+}
+a.icon.icon-home:visited {
+    color: white;
+}
+
+/* Make top blue navbar header black grey */
+.wy-side-nav-search {
+    background-color: #272525;
+}
+
+/* search bar */
+input[name="q"] {
+    background-color: #282828; /* Adjust the shade of grey as needed */
+color:white;
+}
+
+/* hide site logo / fork */
+.fa-code-fork{
+display:none;
+}

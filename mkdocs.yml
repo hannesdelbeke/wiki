@@ -5,7 +5,11 @@ repo_url: https://github.com/hannesdelbeke/wiki
 repo_name: hannesdelbeke/wiki
 
 theme:
-    name: material
+    name: readthedocs
+    # include_homepage_in_sidebar: false
+
+
+
     # note the material theme ships with some 💸PREMIUM features which won't work yet.
     # added them to config for future proofing.
 
@@ -15,9 +19,6 @@ theme:
     font:
         text: Inter  # use same font as obsidian
     language: en
-#    highlightjs: true
-#    icon:
-#        edit: material/pencil
     palette:
 
     # Light mode
@@ -48,7 +49,7 @@ theme:
         - navigation.tracking     # enable anchor tracking in the URL, so users can easily share links
         - navigation.prune        # 💸PREMIUM, reduce the size of the built site, only visible navigation items are included in HTML
         - search.suggest          # autocomplete in the search box
-        - search.highlight        # highlight search terms in the search results
+        # - search.highlight        # highlight search terms in the search results
         - content.tooltips        # 💸PREMIUM, pretty tooltips for links
         - toc.follow              # auto scroll up so active anchor is always visible
 #relative URLs
@@ -133,6 +134,7 @@ extra_css:
     - assets/css/admonition.css
     - assets/css/custom_attributes.css                  # hashtag css etc
     - assets/css/customization.css
+    - assets/css/read-the-docs.css
 extra:                                                  # data passed to templates
     generator: false                                    # if True, displays Made with Material for MkDocs at bottom of page
   #  SEO: assets/meta/SEO.png
