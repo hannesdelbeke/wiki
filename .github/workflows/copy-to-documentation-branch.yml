@@ -15,7 +15,8 @@ jobs:
   copy-content-to-mkdocs-branch:
     runs-on: ubuntu-latest
     steps:
-      
+
+      # clone the 'mkdocs' branch to the'dst_repo' folder
       - name: checkout target repo (branch)
         uses: actions/checkout@v2
         with: 
@@ -46,6 +47,13 @@ jobs:
       - name: Run Note Link Janitor
         run: ${{ github.workspace }}/note-link-janitor/dist/index.js ${{ github.workspace }}/temp_submodule
 
+      # Clean dst_repo/docs before syncing new files.
+      # prevents duplicate files in case we moved a file.
+      - name: clean dst_repo/docs
+        run: |
+          rm -rf dst_repo/docs/*
+          mkdir -p dst_repo/docs/
+          
       # first move image, then notes. # docs folder already exists, it contains css in assets
       - name: move submodule files to dst_repo
         run: |
