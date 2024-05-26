@@ -5,15 +5,43 @@ REM Set environment variables
 set REPO_OWNER=hannesdelbeke
 set DST_REPO=build\dst_repo
 set TEMP_SUBMODULE=build\temp_submodule
+set NOTE_LINK_JANITOR=build\note-link-janitor
 
-REM Clone the 'mkdocs' branch to the 'dst_repo' folder
-echo Cloning mkdocs branch...
-git clone --branch mkdocs https://github.com/%REPO_OWNER%/%REPO_OWNER%.github.io.git %DST_REPO%
 
-rd /s /q %TEMP_SUBMODULE%
+
+
+REM Clone the repository to the 'dst_repo' folder
+echo Cloning repository...
+if exist %DST_REPO% (
+    echo Deleting existing dst_repo directory...
+    rd /s /q %DST_REPO%
+)
+git clone https://github.com/%REPO_OWNER%/wiki.git %DST_REPO%
+if %ERRORLEVEL% NEQ 0 (
+    echo Failed to clone repository.
+    exit /b %ERRORLEVEL%
+)
+
+REM Switch to the 'mkdocs' branch
+echo Switching to mkdocs branch...
+cd %DST_REPO%
+git checkout mkdocs
+if %ERRORLEVEL% NEQ 0 (
+    echo Failed to switch to mkdocs branch. Ensure the branch name is correct.
+    exit /b %ERRORLEVEL%
+)
+cd ..
+
+
+
 
 REM Load content files in submodule in the docs folder
+if exist %TEMP_SUBMODULE% (
+    echo Deleting existing dst_repo directory...
+    rd /s /q %TEMP_SUBMODULE%
+)
 echo Loading submodule...
+echo clone https://github.com/%REPO_OWNER%/brain.git %TEMP_SUBMODULE%
 git clone https://github.com/%REPO_OWNER%/brain.git %TEMP_SUBMODULE%
 
 REM Set up Node.js and Yarn using winget
@@ -21,14 +49,16 @@ echo Setting up Node.js and Yarn...
 winget install OpenJS.NodeJS.LTS
 winget install Yarn.Yarn
 
-REM Clone the note-link-janitor repository and install dependencies
+REM Check if note-link-janitor already exists
 if exist %NOTE_LINK_JANITOR% (
     echo note-link-janitor already exists, skipping clone...
 ) else (
-    echo Cloning and setting up note-link-janitor...
-    git clone --branch stable https://github.com/hannesdelbeke/note-link-janitor.git note-link-janitor
+    echo Cloning note-link-janitor...
+    git clone --branch stable https://github.com/%REPO_OWNER%/note-link-janitor.git %NOTE_LINK_JANITOR%
 )
-cd note-link-janitor
+
+REM Install dependencies and build note-link-janitor
+cd %NOTE_LINK_JANITOR%
 yarn install
 yarn run build
 
@@ -60,4 +90,5 @@ echo Building mkdocs and deploying to GitHub Pages...
 cd %DST_REPO%
 mkdocs serve
 
+echo DONE
 endlocal
