@@ -57,7 +57,7 @@ jobs:
       # first move image, then notes. # docs folder already exists, it contains css in assets
       - name: move submodule files to mkdocs_build_folder
         run: |
-            mkdir -p mkdocs_build_folder/static/images/
+            mkdir -p mkdocs_build_folder/docs/images/
             mv notes_source/image/* mkdocs_build_folder/docs/images/
 
             rm --force -r notes_source/.git
