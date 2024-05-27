@@ -138,11 +138,16 @@ color: #a1a1a1;
     opacity:0.5;
 }
 
-.rst-content code, .rst-content pre code {
+/* tweak codeblocks */
+.rst-content code, .rst-content pre code, .rst-content code {
 background:black;
 border:0px solid #e1e4e5;
 color:white;
+margin-top: 0px;
+margin-bottom: 0px;
 }
+
+/* green code text string */
 .hljs-meta .hljs-string, .hljs-regexp, .hljs-string{
 color:#71d313;
 }

@@ -5,12 +5,10 @@ repo_url: https://github.com/hannesdelbeke/wiki
 repo_name: hannesdelbeke/wiki
 
 theme:
-    name: readthedocs
+    name: material # readthedocs
     # include_homepage_in_sidebar: false
 
-
-
-    # note the material theme ships with some 💸PREMIUM features which won't work yet.
+    # the material theme ships with some 💸PREMIUM features which won't work yet.
     # added them to config for future proofing.
 
 #    logo: assets/meta/favicons.png
@@ -135,7 +133,7 @@ extra_css:
     - assets/css/admonition.css
     - assets/css/custom_attributes.css                  # hashtag css etc
     - assets/css/customization.css
-    - assets/css/read-the-docs.css
+#    - assets/css/read-the-docs.css
     - assets/css/backlinks.css
 extra:                                                  # data passed to templates
     generator: false                                    # if True, displays Made with Material for MkDocs at bottom of page
