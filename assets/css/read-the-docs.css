@@ -1,0 +1,154 @@
+footer {
+    display: none;
+}
+
+/* Dark background */
+.wy-nav-content {
+    background: #151515;
+}
+
+body .wy-nav-content-wrap {
+    background: #151515;
+}
+
+/* nearly white text */
+body {
+    color: #d6d2cd;
+}
+
+/* Not found wiki-links */
+.not_found {
+    color: black;
+}
+
+/* Links */
+a {
+    color: #6997f4;
+}
+
+a:hover {
+    color: #57d1ff;
+    text-decoration: underline;
+}
+
+/* Visited links */
+.wy-nav-content a:visited:not([class="icon icon-home"]){
+    color: #b86bfb;
+}
+a.icon.icon-home:visited {
+    color: white;
+}
+a.icon.icon-home {
+    color: white;
+}
+
+/* Make top blue navbar header black grey */
+.wy-side-nav-search {
+    background-color: #272525;
+}
+
+/* search bar */
+input[name="q"] {
+    background-color: #282828; /* Adjust the shade of grey as needed */
+color:white;
+}
+
+/* hide site logo / fork */
+.fa-code-fork{
+display:none;
+}
+
+/* blue callout */
+.admonition.todo, .admonition.note, .admonition.abstract, .admonition.example, .admonition.info, .admonition.question , .admonition.tip {
+background: #1c4869;
+
+}
+.admonition.todo .admonition-title,
+.admonition.note .admonition-title,
+.admonition.abstract .admonition-title,
+.admonition.info .admonition-title,
+.admonition.tip .admonition-title,
+.admonition.question .admonition-title,
+.admonition.example .admonition-title
+{
+background: #007dcf;
+}
+
+/* green callout */
+.admonition.success{
+background: green;
+}
+.admonition.success .admonition-title{
+background: #1abc9c;
+}
+
+/* grey callout */
+.admonition.quote{
+background: grey;
+color:white;
+}
+.admonition.quote .admonition-title{
+background: #545353;
+}
+
+/* red callout */
+.admonition.danger, .admonition.failure, .admonition.bug {
+background: #a2392e;
+color:white;
+}
+.admonition.danger .admonition-title, .admonition.failure .admonition-title, .admonition.bug .admonition-title{
+background: #e55345;
+}
+
+/* orange callout */
+.admonition.warning{
+background: #b66404;
+color:white;
+}
+.admonition.warning .admonition-title{
+background: #e59b45;
+}
+
+
+/* current nav menu background */
+.wy-menu-vertical li.current {
+background: #494949;
+}
+/* current nav menu links */
+.wy-menu-vertical li.toctree-l2 a
+{
+color: #d6d6d6;
+}
+.wy-menu-vertical li.toctree-l1.current>a {
+background:#6d6d6d;
+color:#e3e3e3;
+}
+
+
+.wy-menu-vertical a {
+color: #a1a1a1;
+}
+/* current nav menu links */
+.rst-versions{
+color: #a1a1a1;
+}
+
+.rst-current-version{
+
+    opacity:0.5;
+}
+
+/* tweak codeblocks */
+.rst-content code, .rst-content pre code, .rst-content code {
+background:black;
+border:0px solid #e1e4e5;
+color:white;
+margin-top: 0px;
+margin-bottom: 0px;
+}
+
+/* green code text string */
+.hljs-meta .hljs-string, .hljs-regexp, .hljs-string{
+color:#71d313;
+}
+
